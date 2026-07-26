@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open-Source Institutional Terminal (OITT) | Syed Ali Hassan Kazmi</title>
+    <meta name="description" content="The ultimate live institutional trading utility. Track live kill-zones and calculate algorithmic market zones.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="font-extrabold text-lg tracking-wider text-cyan-400 flex items-center gap-2">
+                ⚡ OITT <span class="text-xs bg-cyan-950 border border-cyan-800 px-2 py-0.5 rounded text-cyan-300">Live Terminal</span>
+            </div>
+            <div class="text-xs text-slate-400 hidden sm:block">
+                Engineered by <strong class="text-slate-200">Syed Ali Hassan Kazmi</strong>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-6 py-10 space-y-12">
+
+        <!-- Hero Section -->
+        <div class="text-center space-y-4">
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">
+                Institutional <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Live Terminal</span>
+            </h1>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base">
+                Real-time session kill-zones and smart money risk metrics built for high-precision execution.
+            </p>
+        </div>
+
+        <!-- Grid Layout for Utilities -->
+        <div class="grid md:grid-cols-2 gap-8">
+            
+            <!-- Utility 1: Live Kill-Zone Clock -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        🕒 Kill-Zone Tracker
+                    </h2>
+                    <span id="live-time" class="text-xs font-mono text-cyan-400 bg-cyan-950/50 px-3 py-1 rounded-full border border-cyan-800">00:00:00 UTC</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-slate-950 border border-slate-800/80 p-4 rounded-xl flex items-center justify-between">
+                        <div>
+                            <div class="font-semibold text-slate-200">London Open Kill-Zone</div>
+                            <div class="text-xs text-slate-400">07:00 UTC - 10:00 UTC</div>
+                        </div>
+                        <div id="london-status" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400">Checking...</div>
+                    </div>
+
+                    <div class="bg-slate-950 border border-slate-800/80 p-4 rounded-xl flex items-center justify-between">
+                        <div>
+                            <div class="font-semibold text-slate-200">New York Open Kill-Zone</div>
+                            <div class="text-xs text-slate-400">12:00 UTC - 15:00 UTC</div>
+                        </div>
+                        <div id="ny-status" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400">Checking...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Utility 2: Quick Risk & R:R Calculator -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        📐 Institutional R:R Calculator
+                    </h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Entry Price</label>
+                        <input type="number" id="entry" placeholder="e.g. 2350.50" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-cyan-500 text-sm">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Stop Loss</label>
+                            <input type="number" id="sl" placeholder="e.g. 2345.00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-cyan-500 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Take Profit</label>
+                            <input type="number" id="tp" placeholder="e.g. 2370.00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-cyan-500 text-sm">
+                        </div>
+                    </div>
+                    <button onclick="calculateRR()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-lg shadow-cyan-500/20">
+                        Calculate Setup 🚀
+                    </button>
+                    <div id="rr-result" class="text-center text-sm font-semibold text-cyan-400 pt-2"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-8 mt-16 text-center text-xs text-slate-500">
+        <p>&copy; 2026 Syed Ali Hassan Kazmi. Open-Source Institutional Terminal (OITT).</p>
+    </footer>
+
+    <!-- JavaScript Logic for Live Clock & Calculator -->
+    <script>
+        function updateTerminal() {
+            const now = new Date();
+            const utcHours = now.getUTCHours();
+            const utcMinutes = now.getUTCMinutes();
+            const utcSeconds = now.getUTCSeconds();
+
+            document.getElementById('live-time').innerText = 
+                String(utcHours).padStart(2, '0') + ':' + 
+                String(utcMinutes).padStart(2, '0') + ':' + 
+                String(utcSeconds).padStart(2, '0') + ' UTC';
+
+            // London Kill-Zone: 07:00 - 10:00 UTC
+            const londonEl = document.getElementById('london-status');
+            if (utcHours >= 7 && utcHours < 10) {
+                londonEl.innerText = "ACTIVE 🔥";
+                londonEl.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+            } else {
+                londonEl.innerText = "Closed";
+                londonEl.className = "text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400";
+            }
+
+            // New York Kill-Zone: 12:00 - 15:00 UTC
+            const nyEl = document.getElementById('ny-status');
+            if (utcHours >= 12 && utcHours < 15) {
+                nyEl.innerText = "ACTIVE 🔥";
+                nyEl.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+            } else {
+                nyEl.innerText = "Closed";
+                nyEl.className = "text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400";
+            }
+        }
+
+        setInterval(updateTerminal, 1000);
+        updateTerminal();
+
+        function calculateRR() {
+            const entry = parseFloat(document.getElementById('entry').value);
+            const sl = parseFloat(document.getElementById('sl').value);
+            const tp = parseFloat(document.getElementById('tp').value);
+            const resultEl = document.getElementById('rr-result');
+
+            if (!entry || !sl || !tp) {
+                resultEl.innerText = "Please fill in all price fields correctly.";
+                return;
+            }
+
+            const risk = Math.abs(entry - sl);
+            const reward = Math.abs(tp - entry);
+
+            if (risk === 0) {
+                resultEl.innerText = "Entry and Stop Loss cannot be the same.";
+                return;
+            }
+
+            const rr = (reward / risk).toFixed(2);
+            resultEl.innerText = `Risk-to-Reward Ratio: 1 : ${rr} 🎯`;
+        }
+    </script>
+</body>
+</html>
